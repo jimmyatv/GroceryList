@@ -13,14 +13,23 @@ body {
 
 .fa-basket-shopping {
     font-size: xx-large;
-    margin-top: 10px;
-    margin-left: 150px;
+    margin-top: 30px;
     color: rgb(76, 76, 155);
 }
 
+.fa-basket-shopping:hover {
+    color: green;
+    transition: .3s linear;
+}
+
 .fa-eraser {
-    color: red;
+    color: rgb(76, 76, 155);
     font-size: xx-large;
+}
+
+.fa-eraser:hover {
+    color: red;
+    transition: .3s linear;
 }
 
 td {
@@ -30,6 +39,5 @@ td {
 td:first-child {
     width: 100%;
 }
-
 
 
