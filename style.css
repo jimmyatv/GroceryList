@@ -16,9 +16,10 @@ body {
 }
 
 .fa-basket-shopping {
-    font-size: xx-large;
-    margin-top: 30px;
-    color: var(--primary)
+    font-size: 50px;
+    margin-top: 25px;
+    color: var(--primary);
+    
 }
 
 .fa-basket-shopping:hover {
@@ -42,6 +43,15 @@ td {
 
 td:first-child {
     width: 100%;
+}
+
+.shoppingBasket {
+    display: flex;
+    flex-direction: column;
+}
+
+.shoppingBasket hr {
+    margin-bottom: 40px;
 }
 
 .page {

@@ -11,6 +11,8 @@ const list = ['bread', 'milk', 'onion'];
 let page = 1; // current page
 let maxPage; // maximum pages
 
+
+
 const read = (list) => {
     
     groceryListElement.innerHTML = '';
@@ -50,8 +52,23 @@ window.onload = () => {
 
     list.length % 6 === 0 ? maxPage = list.length / 6 : maxPage = Math.floor(list.length / 6) + 1;
     console.log(maxPage);
+
+    groceryElement.focus();
     read(list);
 }
+
+// ENTER function - DONE
+groceryElement.addEventListener('keyup', (props) => {
+    if(props.keyCode === 13) {
+        props.preventDefault();    
+        document.querySelector('.add').click();
+    }
+
+    groceryElement.focus();
+    read(list);
+})
+
+
 
 lessElement.addEventListener('click', () => {
     page <= 1 ? page = 1 : page -= 1;
