@@ -6,10 +6,22 @@ const moreElement = document.querySelector('.more');
 const itemElement = document.querySelector('.item');
 
 
-const list = ['bread', 'milk', 'onion'];
+// const list = ['bread', 'milk', 'onion'];
 
 let page = 1; // current page
 let maxPage; // maximum pages
+
+//! local storage
+let list;
+
+const readFromLocalStorage = (key) => {
+    return JSON.parse(localStorage.getItem(key))
+}
+
+const setLocalStorageItem = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+    return readFromLocalStorage(key);
+}
 
 
 
@@ -21,7 +33,7 @@ const read = (list) => {
         groceryListElement.innerHTML += `
         <tr>
             <td>${element}</td>
-            <td><button class="btn delete-${idx}" onClick="deleteItem(event)"><i class="fa-solid fa-eraser"></i></button></td>
+            <td><button class="btn" data-itemvalue="${element}" onClick="deleteItem(event)"><i class="fa-solid fa-eraser"></i></button></td>
         </tr>`
     })
     list.length % 6 === 0 ? maxPage = list.length / 6 : maxPage = Math.floor(list.length / 6) + 1;
@@ -30,7 +42,8 @@ const read = (list) => {
 
 addElement.addEventListener('click', () => {
     if(groceryElement.value !== ''){
-        list.push(groceryElement.value);
+        const newList = [...list, groceryElement.value];  // added stprage
+        list = setLocalStorageItem('groceryList', newList);
     }
 
     groceryElement.value = '';
@@ -38,22 +51,13 @@ addElement.addEventListener('click', () => {
     read(list);
 });
 
+//! local storage
 const deleteItem = (event) => {
-    
-    let klasa = event.target.parentNode.className;
-    let idx = klasa.split(' ').slice(-1)[0].split('-')[1];
-    console.log(idx);
-
+    let value = event.target.parentNode.dataset.itemvalue;
+    let idx = list.indexOf(value);
     list.splice(idx, 1);
-    read(list);
-}
-
-window.onload = () => {
-
-    list.length % 6 === 0 ? maxPage = list.length / 6 : maxPage = Math.floor(list.length / 6) + 1;
-    console.log(maxPage);
-
-    groceryElement.focus();
+    
+    list = setLocalStorageItem('groceryList', list);
     read(list);
 }
 
@@ -88,3 +92,13 @@ const loadFirstSix = (lista, fromElementIdx, noOfElements) => {
     });
 }
 
+window.onload = () => {
+    localStorage.getItem('groceryList') === null && localStorage.setItem('groceryList', JSON.stringify(['bread', 'milk', 'onion']));
+    list = readFromLocalStorage('groceryList');
+
+    list.length % 6 === 0 ? maxPage = list.length / 6 : maxPage = Math.floor(list.length / 6) + 1;
+    console.log(maxPage);
+
+    groceryElement.focus();
+    read(list);
+}
