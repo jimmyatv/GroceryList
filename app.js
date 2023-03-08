@@ -11,7 +11,7 @@ const itemElement = document.querySelector('.item');
 let page = 1; // current page
 let maxPage; // maximum pages
 
-//! local storage
+//! local storage added
 let list;
 
 const readFromLocalStorage = (key) => {
@@ -42,7 +42,7 @@ const read = (list) => {
 
 addElement.addEventListener('click', () => {
     if(groceryElement.value !== ''){
-        const newList = [...list, groceryElement.value];  // added stprage
+        const newList = [...list, groceryElement.value];  // added storage
         list = setLocalStorageItem('groceryList', newList);
     }
 
@@ -51,7 +51,7 @@ addElement.addEventListener('click', () => {
     read(list);
 });
 
-//! local storage
+//! local storage added
 const deleteItem = (event) => {
     let value = event.target.parentNode.dataset.itemvalue;
     let idx = list.indexOf(value);
